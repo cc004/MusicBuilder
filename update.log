@@ -1,0 +1,63 @@
+MusicBuilder v1.2
+    1. Optimized delayer chosen to reduce circuit size.
+MusicBuilder v1.3
+    1. Use GetFileBytes to improve compile speed.
+    2. Analyze setTempo in MidiParser to resolve tempo related problems.
+    3. Fix Wire Color inconsistent with design.
+    4. Change the build item into export only content.
+MusicBuilder v1.4
+    1. Basic support on instrument.
+MusicBuilder v1.4.1
+    1. Extend the wave length to improve performance on long notes.
+MusicBuilder v1.5 (WavHolder v1.0)
+    1. Add Half-Brick glass above to sync the player with the music.
+    2. Fix the direction of build tool.
+    3. Fix the texture of build tool inconsistent with the item size.
+    4. Seperate the mod content and the music content in order to speed up compiling and updating
+MusicBuilder v1.5.1 (WavHolder v1.0)
+    1. Adjust mod structure.
+    2. Fix wrong note time due to channel 0x09.
+    3. C++ source of MidiParser.exe included.
+MusicBuilder v1.6 (WavHolder v1.1)
+    1. Add drum support at channel 0x09
+MusicBuilder v1.7 (WavHolder v1.1)
+    1. Fix Delayers do not change color.
+    2. Make delayers light up when activated.
+    3. Use delayers instead of halfbrick to show the position.
+    4. Remove damage of the build tool.
+MusicBuilder v1.8 (WavHolder v1.1)
+    1. Add multiple lines support.
+    2. Add recipe for build tool.
+    3. Change build tool rarity to the highest.
+MusicBuilder v1.9 (WavHolder v1.2)
+    1. Add note length support
+    2. Noteblock will glow when activated.
+    3. c source will not be added to tmod now
+MusicBuilder v1.10 (WavHolder v1.2)
+    1. Ignore blank note in c++ midiparser.
+    2. Noteblock will change color when activated.
+    3. Noteblock and delayer will have brand new RANDOM colors.
+    4. Delete useless temporary file in mod packing.
+    5. Add more delayers to reduce structure size.
+    6. Channel 0x09 will have its note length instead of full length.
+    7. Add more bugs.
+MusicBuilder v2.0 (WavHolder v1.2)
+    1. Declare independence from project_logic (by copying its source code).
+    2. Fix that the tile rendering crashes after a reload.
+MusicBuilder v2.1 (WavHolder v1.2)
+    1. Fix that a single point can't be activated when not deactivated.
+    2. Make the color and lighting dim gradually so that it will look ugly.
+MusicBuilder v2.1.1 (WavHolder v1.2)
+    1. Optimize dim effect.
+MusicBuilder v2.1.2 (WavHolder v1.2)
+    1. Fix 0 tick delayer dead loop.
+MusicBuilder v2.2 (WavHolder v1.2)
+    1. Add compatibility with tModLoader v0.11
+    2. Use c++ library to parse midi instead of exeutable file.
+    3. Use PlaceTile API for placing Noteblock to increase compatibility.
+    4. Use ExtField to store noteblock status instead of FrameX and FrameY.
+    5. Add internal velocity support.
+MusicBuilder v2.2.1 (WavHolder v1.2)
+    1. Fix a stupid bug
+MusicBuilder v2.2.2 (WavHolder v1.2)
+    1. Fix that time 0 chord has only one note built.
