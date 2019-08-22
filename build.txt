@@ -4,5 +4,5 @@ hideSource = false
 hideCode = false
 includePDB = true
 includeSource = false
-buildIgnore = Utils\midiParser\include\*, Utils\midiParser\src\*, Utils\midiParser\tools\*, Utils\midiParser\Makefile, Utils\midiParser\test.exe
+buildIgnore = Utils\midiParser\include\*, Utils\midiParser\src\*, Utils\midiParser\tools\*, Utils\midiParser\Makefile, Utils\midiParser\test.exe, .git\*, LICENSE, README.md
 modReferences = WavHolder
