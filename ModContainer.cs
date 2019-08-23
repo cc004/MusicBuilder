@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.ModLoader;
@@ -13,6 +14,7 @@ namespace MusicBuilder
 {
     class ModContainer : Mod
     {
+        public static IntPtr midiHandle;
         public static Mod instance;
         public static int[] time = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 64, 128};
         public static string[] Instrument = new string[]{
@@ -40,48 +42,48 @@ namespace MusicBuilder
             "applause",  "ringwhsl",  "drum"
         };
 
-        public const int tailLength = 90;
-
+        public const int tailLength = 60;
         public override void Load()
         {
             Random rand = new Random();
 
             instance = this;
             
-            NoteReg.themeData = new Dictionary<Theme, NoteReg.ThemeData>();
-            NoteReg.noteData = new Dictionary<Prog, NoteReg.NoteData>();
-            DelayReg.delayData = new Dictionary<ushort, DelayReg.DelayData>();
-
-            NoteReg.themeData.Add((Theme) 1024, new NoteReg.ThemeData("Midi", new uint[]{0x000000}));
-
+            Registries.noteData = new Dictionary<Prog, NoteData>();
+            Registries.delayData = new Dictionary<int, DelayData>();
+            Registries.delayers = new List<int>();
 
             for (int i = 0; i < 129; ++i)
-                NoteReg.noteData.Add((Prog) (1024 + i), new NoteReg.NoteData("WavHolder", (Theme) 1024, Instrument[i], ColorUtils.ColorHue(rand.NextDouble()).PackedValue, 0, 0, 127, 0));
-            for (int i = 0; i < 12; ++i)
-                NoteReg.noteData.Add((Prog) (1153 + i), new NoteReg.NoteData("WavHolder", (Theme) 1024, "drum" + i + "dummy", 0x0000000, 0, 0, 127, 0));
+                Registries.noteData.Add((Prog) (1024 + i), new NoteData(new Color(0, 0, 0), ColorUtils.ColorHue(rand.NextDouble()), Instrument[i]));
 
             for (int i = -1; i < time.Length; ++i)
             {
                 Color lit = ColorUtils.ColorHue(rand.NextDouble());
                 Color bg = new Color((lit.R + 0) / 4, (lit.G + 0) / 4, (lit.B + 0) / 4);
                 Color off = new Color((lit.R + 0) / 2, (lit.G + 0) / 2, (lit.B + 0) / 2);
-                DelayReg.delayData.Add((ushort)(i == -1 ? 0 : time[i]), new DelayReg.DelayData(bg.PackedValue, off.PackedValue, lit.PackedValue));
+                Registries.delayData.Add((ushort)(i == -1 ? 0 : time[i]), new DelayData(bg, off, lit));
             }
 
             Delayer.Load();
             Noteblock.Load();
             DLLContainer.Load();
 
+            IntPtr nullptr = new IntPtr(0);
+            uint result = DLLContainer.midiOutOpen(out midiHandle, 0u, nullptr, nullptr, 0);
+            if (result != 0)
+                throw new SystemException("Failed to open midi device. code " + result);
+
         }
 
         public override void Unload()
         {
-            NoteReg.themeData = null;
-            NoteReg.noteData = null;
-            DelayReg.delayData = null;
+            Registries.noteData = null;
+            Registries.delayers = null;
+            Registries.delayData = null;
 
             Delayer.Unload();
             Noteblock.Unload();
+            DLLContainer.midiOutClose(midiHandle);
             DLLContainer.Unload();
 
             instance = null;

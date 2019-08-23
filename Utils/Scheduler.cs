@@ -72,9 +72,9 @@ namespace MusicBuilder.Utils
 
         public override void PostUpdate()
         {
-             List<Schedule> temp = new List<Schedule>();
-
-            foreach (Schedule schedule in schedules)
+            List<Schedule> temp = new List<Schedule>();
+            List<Schedule> schedules_ = schedules;
+            foreach (Schedule schedule in schedules_)
                 if (schedule.CountDown())
                     temp.Add(schedule);
 

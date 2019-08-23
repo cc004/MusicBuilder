@@ -34,8 +34,8 @@ namespace MusicBuilder.Items
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockBorder"), position, new Rectangle(0, 0, 0x10, 0x10), NoteReg.noteData[this.NOTE].theme.color[0]);
-            spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockInside"), position, new Rectangle(0, 0, 0x10, 0x10), NoteReg.noteData[this.NOTE].txt);
+            spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockBorder"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.noteData[this.NOTE].txt);
+            spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockInside"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.noteData[this.NOTE].bgc);
             return false;
         }
 
@@ -44,8 +44,8 @@ namespace MusicBuilder.Items
             Vector2 position = base.item.Center - Main.screenPosition;
             Vector2 origin = new Vector2(base.item.width * 0.5f, base.item.height * 0.5f);
             SpriteEffects effects = (base.item.direction == -1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Main.spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockBorder"), position, new Rectangle(0, 0, 0x10, 0x10), NoteReg.noteData[this.NOTE].theme.color[0], rotation, origin, scale, effects, 0f);
-            Main.spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockInside"), position, new Rectangle(0, 0, 0x10, 0x10), NoteReg.noteData[this.NOTE].txt, rotation, origin, scale, effects, 0f);
+            Main.spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockBorder"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.noteData[this.NOTE].txt, rotation, origin, scale, effects, 0f);
+            Main.spriteBatch.Draw(base.mod.GetTexture("Items/NoteblockInside"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.noteData[this.NOTE].bgc, rotation, origin, scale, effects, 0f);
             return true;
         }
 
@@ -60,13 +60,13 @@ namespace MusicBuilder.Items
             base.item.useTime = 10;
             base.item.useStyle = 1;
             base.item.consumable = true;
-            base.item.createTile = base.mod.TileType(NoteReg.noteData[this.NOTE].theme.name + "_" + NoteReg.noteData[this.NOTE].name);
+            base.item.createTile = base.mod.TileType(Registries.noteData[this.NOTE].name);
             base.item.placeStyle = 0;
         }
 
         public override void SetStaticDefaults()
         {
-            base.DisplayName.SetDefault(NoteReg.noteData[this.NOTE].theme.name + " " + NoteReg.noteData[this.NOTE].name + " Noteblock");
+            base.DisplayName.SetDefault(Registries.noteData[this.NOTE].name + " Noteblock");
             base.Tooltip.SetDefault("Right click to increase pitch, hit with a hammer to decrease pitch.\nHolding shift makes it jump by an octave instead.");
         }
 

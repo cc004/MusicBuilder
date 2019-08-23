@@ -9,12 +9,16 @@ namespace MusicBuilder.Items
 {
     public class Delayer : ModItem
     {
+        public override bool Autoload(ref string name)
+        {
+            return DELAY != -1;
+        }
         public override void AddRecipes() {}
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            spriteBatch.Draw(base.mod.GetTexture("Items/DelayerBorder"), position, new Rectangle(0, 0, 0x10, 0x10), DelayReg.delayData[this.DELAY].bgc);
-            spriteBatch.Draw(base.mod.GetTexture("Items/DelayerInside"), position, new Rectangle(0, 0, 0x10, 0x10), DelayReg.delayData[this.DELAY].lit);
+            spriteBatch.Draw(base.mod.GetTexture("Items/DelayerBorder"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.delayData[this.DELAY].bgc);
+            spriteBatch.Draw(base.mod.GetTexture("Items/DelayerInside"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.delayData[this.DELAY].lit);
             return false;
         }
 
@@ -23,8 +27,8 @@ namespace MusicBuilder.Items
             Vector2 position = base.item.Center - Main.screenPosition;
             Vector2 origin = new Vector2(base.item.width * 0.5f, base.item.height * 0.5f);
             SpriteEffects effects = (base.item.direction == -1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Main.spriteBatch.Draw(base.mod.GetTexture("Items/DelayerBorder"), position, new Rectangle(0, 0, 0x10, 0x10), DelayReg.delayData[this.DELAY].bgc, rotation, origin, scale, effects, 0f);
-            Main.spriteBatch.Draw(base.mod.GetTexture("Items/DelayerInside"), position, new Rectangle(0, 0, 0x10, 0x10), DelayReg.delayData[this.DELAY].lit, rotation, origin, scale, effects, 0f);
+            Main.spriteBatch.Draw(base.mod.GetTexture("Items/DelayerBorder"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.delayData[this.DELAY].bgc, rotation, origin, scale, effects, 0f);
+            Main.spriteBatch.Draw(base.mod.GetTexture("Items/DelayerInside"), position, new Rectangle(0, 0, 0x10, 0x10), Registries.delayData[this.DELAY].lit, rotation, origin, scale, effects, 0f);
             return false;
         }
 
@@ -49,11 +53,11 @@ namespace MusicBuilder.Items
             base.Tooltip.SetDefault("Right click to change facing direction.");
         }
 
-        public virtual ushort DELAY
+        public virtual int DELAY
         {
             get
             {
-                return 0;
+                return -1;
             }
         }
 
@@ -66,9 +70,20 @@ namespace MusicBuilder.Items
         }
     }
 
+    public class Delayer0 : Delayer
+    {
+        public override int DELAY
+        {
+            get
+            {
+                return 0;
+            }
+        }
+    }
+
     public class Delayer1 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -79,7 +94,7 @@ namespace MusicBuilder.Items
 
     public class Delayer2 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -90,7 +105,7 @@ namespace MusicBuilder.Items
 
     public class Delayer3 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -101,7 +116,7 @@ namespace MusicBuilder.Items
 
     public class Delayer4 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -112,7 +127,7 @@ namespace MusicBuilder.Items
 
     public class Delayer5 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -123,7 +138,7 @@ namespace MusicBuilder.Items
 
     public class Delayer6 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -134,7 +149,7 @@ namespace MusicBuilder.Items
 
     public class Delayer7 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -145,7 +160,7 @@ namespace MusicBuilder.Items
 
     public class Delayer8 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -156,7 +171,7 @@ namespace MusicBuilder.Items
 
     public class Delayer9 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -167,7 +182,7 @@ namespace MusicBuilder.Items
 
     public class Delayer10 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -178,7 +193,7 @@ namespace MusicBuilder.Items
 
     public class Delayer11 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -189,7 +204,7 @@ namespace MusicBuilder.Items
 
     public class Delayer12 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -200,7 +215,7 @@ namespace MusicBuilder.Items
 
     public class Delayer13 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -211,7 +226,7 @@ namespace MusicBuilder.Items
 
     public class Delayer14 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -222,7 +237,7 @@ namespace MusicBuilder.Items
 
     public class Delayer15 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -233,7 +248,7 @@ namespace MusicBuilder.Items
 
     public class Delayer16 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -244,7 +259,7 @@ namespace MusicBuilder.Items
     
     public class Delayer32 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -255,7 +270,7 @@ namespace MusicBuilder.Items
 
     public class Delayer64 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -266,7 +281,7 @@ namespace MusicBuilder.Items
 
     public class Delayer128 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -277,7 +292,7 @@ namespace MusicBuilder.Items
 
     public class Delayer256 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {

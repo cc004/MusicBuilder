@@ -23,7 +23,7 @@ namespace MusicBuilder.Tiles
         public override bool Autoload(ref string name, ref string texture)
         {
             texture = "MusicBuilder/Tiles/DelayerBorder";
-            return true;
+            return DELAY != -1;
         }
 
         public override void RightClick(int i, int j)
@@ -57,7 +57,7 @@ namespace MusicBuilder.Tiles
 
                     int xt = x + direction[k, 0], yt = y + direction[k, 1];
                     Wiring.TripWire(xt, yt, 1, 1);
-                    if (k + 1 == dir && ModTileID.Delayers.Contains(Main.tile[xt, yt].type))
+                    if (k + 1 == dir && Registries.delayers.Contains(Main.tile[xt, yt].type))
                         TileLoader.HitWire(xt, yt, Main.tile[xt, yt].type);
                 }
             }, DataCore.extField[i, j].data1);
@@ -72,7 +72,7 @@ namespace MusicBuilder.Tiles
         public override void PostSetDefaults()
         {
             Main.tileNoSunLight[base.Type] = false;
-            ModTileID.Delayers.Add(base.Type);
+            Registries.delayers.Add(base.Type);
         }
 
         public override void SetDefaults()
@@ -82,12 +82,12 @@ namespace MusicBuilder.Tiles
             base.disableSmartCursor = true;
             Main.tileFrameImportant[base.Type] = true;
             Main.tileSolid[base.Type] = true;
-            base.drop = this.DELAY < 1 ? base.mod.ItemType("Delayer") : base.mod.ItemType("Delayer" + this.DELAY);
+            base.drop = base.mod.ItemType("Delayer" + this.DELAY);
         }
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            Color color = ColorUtils.ColorBlend(DelayReg.delayData[DataCore.extField[i, j].data0].lit, new Color(0, 0, 0), Scheduler.GetProgress(i, j));
+            Color color = ColorUtils.ColorBlend(Registries.delayData[DataCore.extField[i, j].data0].lit, new Color(0, 0, 0), Scheduler.GetProgress(i, j));
             r = color.R / 256.0f;
             g = color.G / 256.0f;
             b = color.B / 256.0f;
@@ -96,7 +96,7 @@ namespace MusicBuilder.Tiles
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Vector2 position = new Vector2((float) (((i * 0x10) - ((int) Main.screenPosition.X)) + Main.offScreenRange), (float) (((j * 0x10) - ((int) Main.screenPosition.Y)) + Main.offScreenRange));
-            DelayReg.DelayData data = DelayReg.delayData[DataCore.extField[i, j].data0];
+            DelayData data = Registries.delayData[DataCore.extField[i, j].data0];
             Color c = ColorUtils.ColorBlend(data.lit, data.off, Scheduler.GetProgress(i, j));
             spriteBatch.Draw(TextureBorder, position, Lighting.GetColor(i, j, data.bgc));
             spriteBatch.Draw(TextureInside, position, new Rectangle(0x12 * DataCore.extField[i, j].data1, 0, 0x10, 0x10), Lighting.GetColor(i, j, c));
@@ -116,18 +116,18 @@ namespace MusicBuilder.Tiles
             TextureInside = null;
         }
 
-        public virtual ushort DELAY
+        public virtual int DELAY
         {
             get
             {
-                return 0;
+                return -1;
             }
         }
     }
 
     public class Delayer0 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -138,7 +138,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer1 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -149,7 +149,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer2 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -160,7 +160,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer3 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -171,7 +171,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer4 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -182,7 +182,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer5 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -193,7 +193,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer6 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -204,7 +204,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer7 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -215,7 +215,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer8 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -226,7 +226,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer9 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -237,7 +237,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer10 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -248,7 +248,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer11 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -259,7 +259,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer12 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -270,7 +270,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer13 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -281,7 +281,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer14 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -292,7 +292,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer15 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -303,7 +303,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer16 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -314,7 +314,7 @@ namespace MusicBuilder.Tiles
     
     public class Delayer32 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -325,7 +325,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer64 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -336,7 +336,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer128 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {
@@ -347,7 +347,7 @@ namespace MusicBuilder.Tiles
 
     public class Delayer256 : Delayer
     {
-        public override ushort DELAY
+        public override int DELAY
         {
             get
             {

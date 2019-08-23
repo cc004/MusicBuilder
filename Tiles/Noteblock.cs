@@ -17,7 +17,7 @@ namespace MusicBuilder.Tiles
 {
     public class Noteblock : ModTile
     {
-        
+        const int min = 0, max = 127;
         public static Texture2D TextureBorder;
         public static Texture2D TexturePitch;
         public static Texture2D TextureOctave;
@@ -38,9 +38,9 @@ namespace MusicBuilder.Tiles
             Main.tile[i, j].halfBrick(false);
             Main.tile[i, j].slope(0);
             DataCore.extField[i, j].data0 = (byte) ((num = DataCore.extField[i, j].data0) - 1);
-            if (num < NoteReg.noteData[this.NOTE].min)
+            if (num < min)
             {
-                DataCore.extField[i, j].data0 = NoteReg.noteData[this.NOTE].max;
+                DataCore.extField[i, j].data0 = max;
             }
             this.HitWire(i, j);
             NetMessage.SendTileSquare(-1, i, j, 1, TileChangeType.None);
@@ -53,12 +53,12 @@ namespace MusicBuilder.Tiles
 			Main.tileLighted[Type] = true;
             base.disableSmartCursor = true;
             Main.tileFrameImportant[base.Type] = true;
-            base.drop = base.mod.ItemType(NoteReg.noteData[this.NOTE].theme.name + "_" + NoteReg.noteData[this.NOTE].name);
+            base.drop = base.mod.ItemType(Registries.noteData[this.NOTE].name);
         }
 
         public override void HitWire(int i, int j)
         {
-            SoundManager.PlaySound(DataCore.extField[i, j].data1, new Point16(i, j), SoundManager.GetSound(this.NOTE, DataCore.extField[i, j].data0), DataCore.extField[i, j].data2);
+            SoundManager.PlaySound(new Point16(i, j), NOTE, DataCore.extField[i, j].data0, DataCore.extField[i, j].data1, DataCore.extField[i, j].data2);
         }
 
         public static void Load()
@@ -75,7 +75,7 @@ namespace MusicBuilder.Tiles
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            Color color = ColorUtils.ColorBlend(NoteReg.noteData[this.NOTE].txt, new Color(0, 0, 0), SoundManager.GetProgress(new Point16(i, j)));
+            Color color = ColorUtils.ColorBlend(Registries.noteData[this.NOTE].bgc, new Color(0, 0, 0), SoundManager.GetProgress(new Point16(i, j)));
             r = color.R / 256.0f;
             g = color.G / 256.0f;
             b = color.B / 256.0f;
@@ -83,14 +83,14 @@ namespace MusicBuilder.Tiles
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Color c = NoteReg.noteData[this.NOTE].txt;
+            Color c = Registries.noteData[this.NOTE].bgc;
             c = ColorUtils.ColorBlend(c, new Color(c.R / 2, c.G / 2, c.B / 2), SoundManager.GetProgress(new Point16(i, j)));
 
             int num = ((i * 0x10) - ((int) Main.screenPosition.X)) + Main.offScreenRange;
             int num2 = ((j * 0x10) - ((int) Main.screenPosition.Y)) + Main.offScreenRange;
             spriteBatch.Draw(TextureBorder, new Vector2((float) num, (float) num2), Lighting.GetColor(i, j, c));
-            spriteBatch.Draw(TexturePitch, new Vector2((float) num, (float) num2), new Rectangle(0x12 * (DataCore.extField[i, j].data0 % 12), 0, 0x10, 0x10), Lighting.GetColor(i, j, NoteReg.noteData[this.NOTE].theme.color[0]));
-            spriteBatch.Draw(TextureOctave, new Vector2((float) (num + 8), (float) (num2 + 8)), new Rectangle(6 * (DataCore.extField[i, j].data0 / 12), 0, 6, 6), Lighting.GetColor(i, j, NoteReg.noteData[this.NOTE].theme.color[0]));
+            spriteBatch.Draw(TexturePitch, new Vector2((float) num, (float) num2), new Rectangle(0x12 * (DataCore.extField[i, j].data0 % 12), 0, 0x10, 0x10), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
+            spriteBatch.Draw(TextureOctave, new Vector2((float) (num + 8), (float) (num2 + 8)), new Rectangle(6 * (DataCore.extField[i, j].data0 / 12), 0, 6, 6), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
             return false;
         }
 
@@ -107,9 +107,9 @@ namespace MusicBuilder.Tiles
                 }
                 else if (Main.keyState.IsKeyDown(Keys.LeftShift))
                 {
-                    if ((DataCore.extField[i, j].data0 = (byte) (DataCore.extField[i, j].data0 + 12)) > NoteReg.noteData[this.NOTE].max)
+                    if ((DataCore.extField[i, j].data0 = (byte) (DataCore.extField[i, j].data0 + 12)) > max);
                     {
-                        DataCore.extField[i, j].data0 = NoteReg.noteData[this.NOTE].min;
+                        DataCore.extField[i, j].data0 = min;
                     }
                     this.HitWire(i, j);
                 }
@@ -117,9 +117,9 @@ namespace MusicBuilder.Tiles
                 {
                     byte num3;
                     DataCore.extField[i, j].data0 = (byte) ((num3 = DataCore.extField[i, j].data0) + 1);
-                    if (num3 > NoteReg.noteData[this.NOTE].max)
+                    if (num3 > max)
                     {
-                        DataCore.extField[i, j].data0 = NoteReg.noteData[this.NOTE].min;
+                        DataCore.extField[i, j].data0 = min;
                     }
                     this.HitWire(i, j);
                 }
@@ -128,8 +128,10 @@ namespace MusicBuilder.Tiles
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
-            if (DataCore.extField[i, j].data0 < NoteReg.noteData[this.NOTE].min)
-                DataCore.extField[i, j].data0 = NoteReg.noteData[this.NOTE].min;
+            if (DataCore.extField[i, j].data0 < min)
+                DataCore.extField[i, j].data0 = min;
+            if (DataCore.extField[i, j].data2 == 0)
+                DataCore.extField[i, j].data2 = 127;
             return true;
         }
 

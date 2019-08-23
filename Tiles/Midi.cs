@@ -2,7 +2,7 @@ using MusicBuilder.Registry;
 
 namespace MusicBuilder.Tiles
 {
-    public class Midi_acpiano : Noteblock
+    public class acpiano : Noteblock
     {
         public override Prog NOTE
         {
@@ -13,7 +13,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_britepno : Noteblock
+    public class britepno : Noteblock
     {
         public override Prog NOTE
         {
@@ -24,7 +24,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_synpiano : Noteblock
+    public class synpiano : Noteblock
     {
         public override Prog NOTE
         {
@@ -35,7 +35,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_honkytonk : Noteblock
+    public class honkytonk : Noteblock
     {
         public override Prog NOTE
         {
@@ -46,7 +46,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_epiano1 : Noteblock
+    public class epiano1 : Noteblock
     {
         public override Prog NOTE
         {
@@ -57,7 +57,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_epiano2 : Noteblock
+    public class epiano2 : Noteblock
     {
         public override Prog NOTE
         {
@@ -68,7 +68,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_hrpschrd : Noteblock
+    public class hrpschrd : Noteblock
     {
         public override Prog NOTE
         {
@@ -79,7 +79,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_clavinet : Noteblock
+    public class clavinet : Noteblock
     {
         public override Prog NOTE
         {
@@ -90,7 +90,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_celeste : Noteblock
+    public class celeste : Noteblock
     {
         public override Prog NOTE
         {
@@ -101,7 +101,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_glocken : Noteblock
+    public class glocken : Noteblock
     {
         public override Prog NOTE
         {
@@ -112,7 +112,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_musicbox : Noteblock
+    public class musicbox : Noteblock
     {
         public override Prog NOTE
         {
@@ -123,7 +123,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_vibes : Noteblock
+    public class vibes : Noteblock
     {
         public override Prog NOTE
         {
@@ -134,7 +134,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_marimba : Noteblock
+    public class marimba : Noteblock
     {
         public override Prog NOTE
         {
@@ -145,7 +145,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_xylophon : Noteblock
+    public class xylophon : Noteblock
     {
         public override Prog NOTE
         {
@@ -156,7 +156,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_tubebell : Noteblock
+    public class tubebell : Noteblock
     {
         public override Prog NOTE
         {
@@ -167,7 +167,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_santur : Noteblock
+    public class santur : Noteblock
     {
         public override Prog NOTE
         {
@@ -178,7 +178,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_homeorg : Noteblock
+    public class homeorg : Noteblock
     {
         public override Prog NOTE
         {
@@ -189,7 +189,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_percorg : Noteblock
+    public class percorg : Noteblock
     {
         public override Prog NOTE
         {
@@ -200,7 +200,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_rockorg : Noteblock
+    public class rockorg : Noteblock
     {
         public override Prog NOTE
         {
@@ -211,7 +211,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_churchorg : Noteblock
+    public class churchorg : Noteblock
     {
         public override Prog NOTE
         {
@@ -222,7 +222,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_reedorg : Noteblock
+    public class reedorg : Noteblock
     {
         public override Prog NOTE
         {
@@ -233,7 +233,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_accordn : Noteblock
+    public class accordn : Noteblock
     {
         public override Prog NOTE
         {
@@ -244,7 +244,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_harmonica : Noteblock
+    public class harmonica : Noteblock
     {
         public override Prog NOTE
         {
@@ -255,7 +255,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_concrtna : Noteblock
+    public class concrtna : Noteblock
     {
         public override Prog NOTE
         {
@@ -266,7 +266,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_nyguitar : Noteblock
+    public class nyguitar : Noteblock
     {
         public override Prog NOTE
         {
@@ -277,7 +277,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_acguitar : Noteblock
+    public class acguitar : Noteblock
     {
         public override Prog NOTE
         {
@@ -288,7 +288,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_jazzgtr : Noteblock
+    public class jazzgtr : Noteblock
     {
         public override Prog NOTE
         {
@@ -299,7 +299,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_cleangtr : Noteblock
+    public class cleangtr : Noteblock
     {
         public override Prog NOTE
         {
@@ -310,7 +310,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_mutegtr : Noteblock
+    public class mutegtr : Noteblock
     {
         public override Prog NOTE
         {
@@ -321,7 +321,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_odguitar : Noteblock
+    public class odguitar : Noteblock
     {
         public override Prog NOTE
         {
@@ -332,7 +332,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_distgtr : Noteblock
+    public class distgtr : Noteblock
     {
         public override Prog NOTE
         {
@@ -343,7 +343,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_gtrharm : Noteblock
+    public class gtrharm : Noteblock
     {
         public override Prog NOTE
         {
@@ -354,7 +354,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_acbass : Noteblock
+    public class acbass : Noteblock
     {
         public override Prog NOTE
         {
@@ -365,7 +365,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_fngrbass : Noteblock
+    public class fngrbass : Noteblock
     {
         public override Prog NOTE
         {
@@ -376,7 +376,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_pickbass : Noteblock
+    public class pickbass : Noteblock
     {
         public override Prog NOTE
         {
@@ -387,7 +387,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_fretless : Noteblock
+    public class fretless : Noteblock
     {
         public override Prog NOTE
         {
@@ -398,7 +398,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_slapbas1 : Noteblock
+    public class slapbas1 : Noteblock
     {
         public override Prog NOTE
         {
@@ -409,7 +409,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_slapbas2 : Noteblock
+    public class slapbas2 : Noteblock
     {
         public override Prog NOTE
         {
@@ -420,7 +420,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_synbass1 : Noteblock
+    public class synbass1 : Noteblock
     {
         public override Prog NOTE
         {
@@ -431,7 +431,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_synbass2 : Noteblock
+    public class synbass2 : Noteblock
     {
         public override Prog NOTE
         {
@@ -442,7 +442,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_violin : Noteblock
+    public class violin : Noteblock
     {
         public override Prog NOTE
         {
@@ -453,7 +453,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_viola : Noteblock
+    public class viola : Noteblock
     {
         public override Prog NOTE
         {
@@ -464,7 +464,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_cello : Noteblock
+    public class cello : Noteblock
     {
         public override Prog NOTE
         {
@@ -475,7 +475,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_contraba : Noteblock
+    public class contraba : Noteblock
     {
         public override Prog NOTE
         {
@@ -486,7 +486,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_marcato1 : Noteblock
+    public class marcato1 : Noteblock
     {
         public override Prog NOTE
         {
@@ -497,7 +497,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_pizzcato : Noteblock
+    public class pizzcato : Noteblock
     {
         public override Prog NOTE
         {
@@ -508,7 +508,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_harp : Noteblock
+    public class harp : Noteblock
     {
         public override Prog NOTE
         {
@@ -519,7 +519,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_timpani : Noteblock
+    public class timpani : Noteblock
     {
         public override Prog NOTE
         {
@@ -530,7 +530,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_marcato2 : Noteblock
+    public class marcato2 : Noteblock
     {
         public override Prog NOTE
         {
@@ -541,7 +541,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_slowstr : Noteblock
+    public class slowstr : Noteblock
     {
         public override Prog NOTE
         {
@@ -552,7 +552,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_synstr1 : Noteblock
+    public class synstr1 : Noteblock
     {
         public override Prog NOTE
         {
@@ -563,7 +563,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_synstr2 : Noteblock
+    public class synstr2 : Noteblock
     {
         public override Prog NOTE
         {
@@ -574,7 +574,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_choir : Noteblock
+    public class choir : Noteblock
     {
         public override Prog NOTE
         {
@@ -585,7 +585,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_doo : Noteblock
+    public class doo : Noteblock
     {
         public override Prog NOTE
         {
@@ -596,7 +596,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_voices : Noteblock
+    public class voices : Noteblock
     {
         public override Prog NOTE
         {
@@ -607,7 +607,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_orchhit : Noteblock
+    public class orchhit : Noteblock
     {
         public override Prog NOTE
         {
@@ -618,7 +618,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_trumpet : Noteblock
+    public class trumpet : Noteblock
     {
         public override Prog NOTE
         {
@@ -629,7 +629,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_trombone : Noteblock
+    public class trombone : Noteblock
     {
         public override Prog NOTE
         {
@@ -640,7 +640,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_tuba : Noteblock
+    public class tuba : Noteblock
     {
         public override Prog NOTE
         {
@@ -651,7 +651,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_mutetrum : Noteblock
+    public class mutetrum : Noteblock
     {
         public override Prog NOTE
         {
@@ -662,7 +662,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_frenchorn : Noteblock
+    public class frenchorn : Noteblock
     {
         public override Prog NOTE
         {
@@ -673,7 +673,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_hitbrass : Noteblock
+    public class hitbrass : Noteblock
     {
         public override Prog NOTE
         {
@@ -684,7 +684,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_synbras1 : Noteblock
+    public class synbras1 : Noteblock
     {
         public override Prog NOTE
         {
@@ -695,7 +695,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_synbras2 : Noteblock
+    public class synbras2 : Noteblock
     {
         public override Prog NOTE
         {
@@ -706,7 +706,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_sprnosax : Noteblock
+    public class sprnosax : Noteblock
     {
         public override Prog NOTE
         {
@@ -717,7 +717,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_altosax : Noteblock
+    public class altosax : Noteblock
     {
         public override Prog NOTE
         {
@@ -728,7 +728,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_tenorsax : Noteblock
+    public class tenorsax : Noteblock
     {
         public override Prog NOTE
         {
@@ -739,7 +739,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_barisax : Noteblock
+    public class barisax : Noteblock
     {
         public override Prog NOTE
         {
@@ -750,7 +750,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_oboe : Noteblock
+    public class oboe : Noteblock
     {
         public override Prog NOTE
         {
@@ -761,7 +761,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_englhorn : Noteblock
+    public class englhorn : Noteblock
     {
         public override Prog NOTE
         {
@@ -772,7 +772,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_bassoon : Noteblock
+    public class bassoon : Noteblock
     {
         public override Prog NOTE
         {
@@ -783,7 +783,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_clarinet : Noteblock
+    public class clarinet : Noteblock
     {
         public override Prog NOTE
         {
@@ -794,7 +794,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_piccolo : Noteblock
+    public class piccolo : Noteblock
     {
         public override Prog NOTE
         {
@@ -805,7 +805,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_flute : Noteblock
+    public class flute : Noteblock
     {
         public override Prog NOTE
         {
@@ -816,7 +816,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_recorder : Noteblock
+    public class recorder : Noteblock
     {
         public override Prog NOTE
         {
@@ -827,7 +827,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_woodflut : Noteblock
+    public class woodflut : Noteblock
     {
         public override Prog NOTE
         {
@@ -838,7 +838,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_bottle : Noteblock
+    public class bottle : Noteblock
     {
         public override Prog NOTE
         {
@@ -849,7 +849,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_shakazul : Noteblock
+    public class shakazul : Noteblock
     {
         public override Prog NOTE
         {
@@ -860,7 +860,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_whistle : Noteblock
+    public class whistle : Noteblock
     {
         public override Prog NOTE
         {
@@ -871,7 +871,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_ocarina : Noteblock
+    public class ocarina : Noteblock
     {
         public override Prog NOTE
         {
@@ -882,7 +882,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_sqrwave : Noteblock
+    public class sqrwave : Noteblock
     {
         public override Prog NOTE
         {
@@ -893,7 +893,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_sawwave : Noteblock
+    public class sawwave : Noteblock
     {
         public override Prog NOTE
         {
@@ -904,7 +904,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_calliope : Noteblock
+    public class calliope : Noteblock
     {
         public override Prog NOTE
         {
@@ -915,7 +915,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_chiflead : Noteblock
+    public class chiflead : Noteblock
     {
         public override Prog NOTE
         {
@@ -926,7 +926,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_charang : Noteblock
+    public class charang : Noteblock
     {
         public override Prog NOTE
         {
@@ -937,7 +937,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_voxlead : Noteblock
+    public class voxlead : Noteblock
     {
         public override Prog NOTE
         {
@@ -948,7 +948,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_lead5th : Noteblock
+    public class lead5th : Noteblock
     {
         public override Prog NOTE
         {
@@ -959,7 +959,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_basslead : Noteblock
+    public class basslead : Noteblock
     {
         public override Prog NOTE
         {
@@ -970,7 +970,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_fantasia : Noteblock
+    public class fantasia : Noteblock
     {
         public override Prog NOTE
         {
@@ -981,7 +981,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_warmpad : Noteblock
+    public class warmpad : Noteblock
     {
         public override Prog NOTE
         {
@@ -992,7 +992,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_polysyn : Noteblock
+    public class polysyn : Noteblock
     {
         public override Prog NOTE
         {
@@ -1003,7 +1003,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_ghostie : Noteblock
+    public class ghostie : Noteblock
     {
         public override Prog NOTE
         {
@@ -1014,7 +1014,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_bowglass : Noteblock
+    public class bowglass : Noteblock
     {
         public override Prog NOTE
         {
@@ -1025,7 +1025,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_metalpad : Noteblock
+    public class metalpad : Noteblock
     {
         public override Prog NOTE
         {
@@ -1036,7 +1036,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_halopad : Noteblock
+    public class halopad : Noteblock
     {
         public override Prog NOTE
         {
@@ -1047,7 +1047,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_sweeper1 : Noteblock
+    public class sweeper1 : Noteblock
     {
         public override Prog NOTE
         {
@@ -1058,7 +1058,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_aurora : Noteblock
+    public class aurora : Noteblock
     {
         public override Prog NOTE
         {
@@ -1069,7 +1069,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_soundtrk : Noteblock
+    public class soundtrk : Noteblock
     {
         public override Prog NOTE
         {
@@ -1080,7 +1080,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_crystal : Noteblock
+    public class crystal : Noteblock
     {
         public override Prog NOTE
         {
@@ -1091,7 +1091,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_atmosphr : Noteblock
+    public class atmosphr : Noteblock
     {
         public override Prog NOTE
         {
@@ -1102,7 +1102,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_freshair : Noteblock
+    public class freshair : Noteblock
     {
         public override Prog NOTE
         {
@@ -1113,7 +1113,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_unicorn : Noteblock
+    public class unicorn : Noteblock
     {
         public override Prog NOTE
         {
@@ -1124,7 +1124,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_sweeper2 : Noteblock
+    public class sweeper2 : Noteblock
     {
         public override Prog NOTE
         {
@@ -1135,7 +1135,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_startrak : Noteblock
+    public class startrak : Noteblock
     {
         public override Prog NOTE
         {
@@ -1146,7 +1146,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_sitar : Noteblock
+    public class sitar : Noteblock
     {
         public override Prog NOTE
         {
@@ -1157,7 +1157,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_banjo : Noteblock
+    public class banjo : Noteblock
     {
         public override Prog NOTE
         {
@@ -1168,7 +1168,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_shamisen : Noteblock
+    public class shamisen : Noteblock
     {
         public override Prog NOTE
         {
@@ -1179,7 +1179,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_koto : Noteblock
+    public class koto : Noteblock
     {
         public override Prog NOTE
         {
@@ -1190,7 +1190,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_kalimba : Noteblock
+    public class kalimba : Noteblock
     {
         public override Prog NOTE
         {
@@ -1201,7 +1201,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_bagpipes : Noteblock
+    public class bagpipes : Noteblock
     {
         public override Prog NOTE
         {
@@ -1212,7 +1212,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_fiddle : Noteblock
+    public class fiddle : Noteblock
     {
         public override Prog NOTE
         {
@@ -1223,7 +1223,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_shannai : Noteblock
+    public class shannai : Noteblock
     {
         public override Prog NOTE
         {
@@ -1234,7 +1234,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_carillon : Noteblock
+    public class carillon : Noteblock
     {
         public override Prog NOTE
         {
@@ -1245,7 +1245,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_agogo : Noteblock
+    public class agogo : Noteblock
     {
         public override Prog NOTE
         {
@@ -1256,7 +1256,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_steeldrum : Noteblock
+    public class steeldrum : Noteblock
     {
         public override Prog NOTE
         {
@@ -1267,7 +1267,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_woodblock : Noteblock
+    public class woodblock : Noteblock
     {
         public override Prog NOTE
         {
@@ -1278,7 +1278,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_taiko : Noteblock
+    public class taiko : Noteblock
     {
         public override Prog NOTE
         {
@@ -1289,7 +1289,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_toms : Noteblock
+    public class toms : Noteblock
     {
         public override Prog NOTE
         {
@@ -1300,7 +1300,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_syntom : Noteblock
+    public class syntom : Noteblock
     {
         public override Prog NOTE
         {
@@ -1311,7 +1311,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_revcymb : Noteblock
+    public class revcymb : Noteblock
     {
         public override Prog NOTE
         {
@@ -1322,7 +1322,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_fxfret : Noteblock
+    public class fxfret : Noteblock
     {
         public override Prog NOTE
         {
@@ -1333,7 +1333,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_fxblow : Noteblock
+    public class fxblow : Noteblock
     {
         public override Prog NOTE
         {
@@ -1344,7 +1344,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_seashore : Noteblock
+    public class seashore : Noteblock
     {
         public override Prog NOTE
         {
@@ -1355,7 +1355,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_jungle : Noteblock
+    public class jungle : Noteblock
     {
         public override Prog NOTE
         {
@@ -1366,7 +1366,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_telephone : Noteblock
+    public class telephone : Noteblock
     {
         public override Prog NOTE
         {
@@ -1377,7 +1377,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_helicptr : Noteblock
+    public class helicptr : Noteblock
     {
         public override Prog NOTE
         {
@@ -1388,7 +1388,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_applause : Noteblock
+    public class applause : Noteblock
     {
         public override Prog NOTE
         {
@@ -1399,7 +1399,7 @@ namespace MusicBuilder.Tiles
         }
     }
 
-    public class Midi_ringwhsl : Noteblock
+    public class ringwhsl : Noteblock
     {
         public override Prog NOTE
         {
@@ -1409,5 +1409,14 @@ namespace MusicBuilder.Tiles
             }
         }
     }
-
+    public class drum : Noteblock
+    {
+        public override Prog NOTE
+        {
+            get
+            {
+                return (Prog) 1152;
+            }
+        }
+    }
 }
