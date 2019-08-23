@@ -67,7 +67,6 @@ namespace MusicBuilder.Utils
                 ++channels[channel].activeCount;
             channels[channel].key[pitch] = keyID;
             msg = (uint)(0x90 | (pitch << 8) | (velocity << 16) | channel);
-            Main.NewText("Midi Out channel = " + channel + ", pitch = " + pitch + ", velocity = " + velocity);
             DLLContainer.midiOutShortMsg(ModContainer.midiHandle, msg);
         }
 

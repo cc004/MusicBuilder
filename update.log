@@ -66,3 +66,5 @@ MusicBuilder v3.0
     2. Greatly reduced mod file size.
     3. Greatly improved sound effect.
     4. Fix concurrent modification exception while in dead loop of delay0.
+MusicBuilder v3.0.1
+    1. Remove debug info.
