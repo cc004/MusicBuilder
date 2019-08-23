@@ -43,12 +43,13 @@ namespace MusicBuilder.Utils
             DataCore.extField[x, y].data1 = (byte) type;
         }
 
-        public static void PlaceNoteBlock(int x, int y, Prog program, byte pitch, byte lasting, byte velocity)
+        public static void PlaceNoteBlock(int x, int y, Prog program, byte pitch, ushort lasting, byte velocity)
         {
             WorldGen.PlaceTile(x, y, ModContainer.instance.GetTile(Registries.noteData[program].name).Type);
             DataCore.extField[x, y].data0 = pitch;
-            DataCore.extField[x, y].data1 = lasting;
-            DataCore.extField[x, y].data2 = velocity;
+            DataCore.extField[x, y].data1 = (byte) (lasting >> 8);
+            DataCore.extField[x, y].data2 = (byte) (lasting & 0xff);
+            DataCore.extField[x, y].data3 = velocity;
         }
     }
 }

@@ -11,8 +11,9 @@ extern "C"
 
 struct Note
 {
-    unsigned char instrument, pitch, velocity, lasting;
     unsigned int time;
+    unsigned short lasting;
+    unsigned char instrument, pitch, velocity;
 };
 
 void callback(void *mem0, void *val)
@@ -24,16 +25,17 @@ void callback(void *mem0, void *val)
     notes = new Note[size];
     for (int i = 0; i < size; ++i)
     {
-        notes[i].instrument = getByte(mem, 8 * i + 4);
-        notes[i].pitch = getByte(mem, 8 * i + 5);
-        notes[i].velocity = getByte(mem, 8 * i + 6);
-        notes[i].lasting = getByte(mem, 8 * i + 7);
-        notes[i].time =  getUInt(mem, 8 * i + 8);
+        notes[i].time =  getUInt(mem, 12 * i + 4);
+        notes[i].lasting = getUShort(mem, 12 * i + 8);
+        notes[i].instrument = getByte(mem, 12 * i + 10);
+        notes[i].pitch = getByte(mem, 12 * i + 11);
+        notes[i].velocity = getByte(mem, 12 * i + 12);
         cout << (int)notes[i].instrument << ' ' << (int)notes[i].pitch << ' ' << notes[i].time << ' ' << (int)notes[i].lasting << endl;
     }
 }
 
 int main()
 {
-    readMidi("D:\\lemon.mid", callback, nullptr);
+    readMidi("D:\\touhou.mid", callback, nullptr);
+    cout << sizeof(struct Note);
 }

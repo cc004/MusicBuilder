@@ -58,7 +58,13 @@ namespace MusicBuilder.Tiles
 
         public override void HitWire(int i, int j)
         {
-            SoundManager.PlaySound(new Point16(i, j), NOTE, DataCore.extField[i, j].data0, DataCore.extField[i, j].data1, DataCore.extField[i, j].data2);
+            SoundManager.PlaySound(
+                new Point16(i, j),
+                NOTE,
+                DataCore.extField[i, j].data0,
+                (ushort)((DataCore.extField[i, j].data1 << 8) | DataCore.extField[i, j].data2),
+                DataCore.extField[i, j].data3
+            );
         }
 
         public static void Load()

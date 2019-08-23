@@ -35,7 +35,7 @@ namespace MusicBuilder.Utils
             channels[9].program = (Prog) 1152;
         }
 
-        public PlayingSound(Point16 point, byte length, Prog program, byte pitch, byte velocity)
+        public PlayingSound(Point16 point, ushort length, Prog program, byte pitch, byte velocity)
         {
             uint msg;
             int channel = 0;
@@ -108,7 +108,7 @@ namespace MusicBuilder.Utils
             return 1.0;
         }
 
-        public static void PlaySound(Point16 point, Prog program, byte pitch, byte length, byte velocity)
+        public static void PlaySound(Point16 point, Prog program, byte pitch, ushort length, byte velocity)
         {
             PlayingSound sound = new PlayingSound(point, length, program, pitch, velocity);
             if (sound.playing)

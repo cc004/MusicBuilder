@@ -32,10 +32,12 @@ namespace MusicBuilder.Utils
         public delegate void ReadMidiCallback(IntPtr mem, ref Midi midi);
         public delegate void ReadMidi(string filename, ReadMidiCallback callback, ref Midi midi);
         public delegate uint GetUInt(IntPtr mem, int index);
+        public delegate ushort GetUShort(IntPtr mem, int index);
         public delegate byte GetByte(IntPtr mem, int index);
 
         public static ReadMidi readMidi;
         public static GetUInt getUInt;
+        public static GetUShort getUShort;
         public static GetByte getByte;
 
         public static void Load()
@@ -54,6 +56,7 @@ namespace MusicBuilder.Utils
             int errCode = Marshal.GetLastWin32Error();
             readMidi = (ReadMidi) Marshal.GetDelegateForFunctionPointer(GetProcAddress(midiParser, "readMidi"), typeof(ReadMidi));
             getUInt = (GetUInt) Marshal.GetDelegateForFunctionPointer(GetProcAddress(midiParser, "getUInt"), typeof(GetUInt));
+            getUShort = (GetUShort) Marshal.GetDelegateForFunctionPointer(GetProcAddress(midiParser, "getUShort"), typeof(GetUShort));
             getByte = (GetByte) Marshal.GetDelegateForFunctionPointer(GetProcAddress(midiParser, "getByte"), typeof(GetByte));
         }
 

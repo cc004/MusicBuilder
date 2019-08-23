@@ -10,8 +10,9 @@ using namespace smf;
 
 struct Note
 {
-    unsigned char instrument, pitch, velocity, lasting;
-    unsigned int time; //gametick
+    unsigned int time;
+    unsigned short lasting;
+    unsigned char instrument, pitch, velocity;
     Note(int instrument, int pitch, int time, int velocity):instrument(instrument), pitch(pitch), velocity(velocity), time(time) {}
     Note() : velocity(0) {}
 };
@@ -22,7 +23,7 @@ void readMidi(const char *filename, void callback(void *, void *), void *args)
     vector<Note> notes;
     int channel_instrument[16];
     int volume[16];
-    Note record[16][128];
+    Note *record[16];
 
     double tempo = 1.0, abstick; //midi tick per game tick
     unsigned int lasttime, tpp = midifile.getTicksPerQuarterNote();
@@ -31,6 +32,7 @@ void readMidi(const char *filename, void callback(void *, void *), void *args)
     {
         channel_instrument[i] = 0;
         volume[i] = 127;
+        record[i] = new Note[128];
     }
 
     midifile.absoluteTicks();
@@ -45,7 +47,6 @@ void readMidi(const char *filename, void callback(void *, void *), void *args)
         int channel = midifile[0][i][0] & 0x0f;
 
         abstick += (midifile[0][i].tick - lasttime) / tempo;
-
         if (midifile[0][i][0] == 0xff && midifile[0][i][1] == 0x51)
         {
             int microseconds = 0;
@@ -59,9 +60,9 @@ void readMidi(const char *filename, void callback(void *, void *), void *args)
         {
             if (record[channel][midifile[0][i][1]].velocity && midifile[0][i][2]) 
             {
-                record[channel][midifile[0][i][1]].lasting = min(abstick - record[channel][midifile[0][i][1]].time, 255.0);
+                record[channel][midifile[0][i][1]].lasting = min(abstick - record[channel][midifile[0][i][1]].time, 65535.0);
                 if (record[channel][midifile[0][i][1]].lasting)
-                notes.push_back(record[channel][midifile[0][i][1]]);
+                    notes.push_back(record[channel][midifile[0][i][1]]);
                 record[channel][midifile[0][i][1]].velocity = 0;
             }
 
@@ -70,21 +71,21 @@ void readMidi(const char *filename, void callback(void *, void *), void *args)
                     128, //instrument = drum
                     midifile[0][i][1], //pitch
                     abstick, //time
-                    midifile[0][i][2]// * volume[channel] / 127 //velocity
+                    midifile[0][i][2] * volume[channel] / 127 //velocity
                 );
             else
                 record[channel][midifile[0][i][1]] = Note(
                     channel_instrument[channel], //instrument
                     midifile[0][i][1], //pitch
                     abstick, //time
-                    midifile[0][i][2]///、 * volume[channel] / 127 //velocity
+                    midifile[0][i][2] * volume[channel] / 127 //velocity
                 );
         }
         else if (command == 0x90 || command == 0x80)
         {
             if (record[channel][midifile[0][i][1]].velocity) 
             {
-                record[channel][midifile[0][i][1]].lasting =  min(abstick - record[channel][midifile[0][i][1]].time, 255.0);
+                record[channel][midifile[0][i][1]].lasting =  min(abstick - record[channel][midifile[0][i][1]].time, 65535.0);
                 if (record[channel][midifile[0][i][1]].lasting)
                     notes.push_back(record[channel][midifile[0][i][1]]);
                 record[channel][midifile[0][i][1]].velocity = 0;
@@ -105,9 +106,8 @@ void readMidi(const char *filename, void callback(void *, void *), void *args)
     }
 
     sort(notes.begin(), notes.end(), [](const Note& x, const Note& y) -> bool {return x.time < y.time;});
-    
     //0 noteSize
-    //4 ~ 8*n+4 data
+    //4 ~ 12*n+4 data
     char *mem;
     Note *p;
     mem = new char[notes.size() * sizeof(Note) + 4];
@@ -117,6 +117,8 @@ void readMidi(const char *filename, void callback(void *, void *), void *args)
         *p++ = note;
     callback(mem, args);
     delete[] mem;
+    for (int i = 0; i < 16; ++i)
+        delete[] record[i];
 }
 
 unsigned int getUInt(char *mem, int index)
@@ -127,4 +129,9 @@ unsigned int getUInt(char *mem, int index)
 unsigned char getByte(char *mem, int index)
 {
     return *(char *)&mem[index];
+}
+
+unsigned short getUShort(char *mem, int index)
+{
+    return *(unsigned short *)&mem[index];
 }

@@ -68,3 +68,6 @@ MusicBuilder v3.0
     4. Fix concurrent modification exception while in dead loop of delay0.
 MusicBuilder v3.0.1
     1. Remove debug info.
+MusicBuilder v3.1
+    1. Add channel volume support
+    2. Add extremely long note support
