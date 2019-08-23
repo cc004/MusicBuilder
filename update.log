@@ -61,3 +61,8 @@ MusicBuilder v2.2.1 (WavHolder v1.2)
     1. Fix a stupid bug
 MusicBuilder v2.2.2 (WavHolder v1.2)
     1. Fix that time 0 chord has only one note built.
+MusicBuilder v3.0
+    1. Use winmm.dll instead of prebuilt wav file.
+    2. Greatly reduced mod file size.
+    3. Greatly improved sound effect.
+    4. Fix concurrent modification exception while in dead loop of delay0.
