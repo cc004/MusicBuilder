@@ -1,8 +1,10 @@
 using System.IO;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Utilities;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using MusicBuilder.Tiles;
 
 namespace MusicBuilder.Utils
 {
@@ -20,17 +22,15 @@ namespace MusicBuilder.Utils
         public override void Initialize()
         {
             extField = new ExtField[Main.maxTilesX, Main.maxTilesY];
+            //TODO: should be somewhere else
+            Noteblock.selection = new Point16(-1, -1);
         }
 
         public override void Load(TagCompound tag)
         {
-            string path = Path.ChangeExtension(Main.ActiveWorldFileData.Path, ".mb");
-            if (!FileUtilities.Exists(path, false)) return;
             try
             {
-                byte[] buffer = new byte[5 * Main.maxTilesX * Main.maxTilesY];
-                buffer = FileUtilities.ReadAllBytes(path, false);
-                FileStream fs = new FileStream(path, FileMode.Open);
+                byte[] buffer = tag.Get<byte[]>("musicbuilder");
                 for (int i = 0; i < Main.maxTilesX; ++i)
                     for (int j = 0; j < Main.maxTilesY; ++j)
                     {
@@ -49,13 +49,10 @@ namespace MusicBuilder.Utils
         
         public override TagCompound Save()
         {
-            string path = Path.ChangeExtension(Main.ActiveWorldFileData.Path, ".mb");
-            //TODO: Delete .mb file when the world is deleted in the game.
-            if (FileUtilities.Exists(path, false))
-                FileUtilities.Copy(path, path + ".bak", false);
             try
             {
                 byte[] buffer = new byte[5 * Main.maxTilesX * Main.maxTilesY];
+                TagCompound tag = new TagCompound();
                 for (int i = 0; i < Main.maxTilesX; ++i)
                     for (int j = 0; j < Main.maxTilesY; ++j)
                     {
@@ -65,13 +62,13 @@ namespace MusicBuilder.Utils
                         buffer[5 * (i + Main.maxTilesX * j) + 3] = extField[i, j].data3;
                         buffer[5 * (i + Main.maxTilesX * j) + 4] = extField[i, j].data4;
                     }
-                FileUtilities.WriteAllBytes(path, buffer, false);
+                tag.Set("musicbuilder", buffer);
+                return tag;
             }
             catch
             {
                 return null;
             }
-            return new TagCompound();
         }
     }
 }

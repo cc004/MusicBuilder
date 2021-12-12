@@ -83,33 +83,29 @@ namespace MusicBuilder.Tiles
             Main.tileFrameImportant[base.Type] = true;
             Main.tileSolid[base.Type] = true;
             base.drop = base.mod.ItemType("Delayer" + this.DELAY);
+    		ModTranslation name = CreateMapEntryName();
+	    	name.SetDefault("Delayer" + this.DELAY);
+    		AddMapEntry(Registries.delayData[this.DELAY].lit, name);
         }
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            Color color = ColorUtils.ColorBlend(Registries.delayData[DataCore.extField[i, j].data0].lit, new Color(0, 0, 0), Scheduler.GetProgress(i, j));
-            r = color.R / 256.0f;
-            g = color.G / 256.0f;
-            b = color.B / 256.0f;
+            Color color = ColorUtils.ColorBlend(Registries.delayData[this.DELAY].lit, new Color(0, 0, 0), Scheduler.GetProgress(i, j));
+            r = color.R / 255.0f;
+            g = color.G / 255.0f;
+            b = color.B / 255.0f;
 		}
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Vector2 position = new Vector2((float) (((i * 0x10) - ((int) Main.screenPosition.X)) + Main.offScreenRange), (float) (((j * 0x10) - ((int) Main.screenPosition.Y)) + Main.offScreenRange));
-            DelayData data = Registries.delayData[DataCore.extField[i, j].data0];
+            DelayData data = Registries.delayData[this.DELAY];
             Color c = ColorUtils.ColorBlend(data.lit, data.off, Scheduler.GetProgress(i, j));
             spriteBatch.Draw(TextureBorder, position, Lighting.GetColor(i, j, data.bgc));
             spriteBatch.Draw(TextureInside, position, new Rectangle(0x12 * DataCore.extField[i, j].data1, 0, 0x10, 0x10), Lighting.GetColor(i, j, c));
             return false;
         }
 
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-        {
-            if (DataCore.extField[i, j].data1 == 0)
-                if (DataCore.extField[i, j].data0 != ((byte) this.DELAY))
-                    DataCore.extField[i, j].data0 = (byte) this.DELAY;
-            return true;
-        }
         public static void Unload()
         {
             TextureBorder = null;

@@ -71,3 +71,22 @@ MusicBuilder v3.0.1
 MusicBuilder v3.1
     1. Add channel volume support
     2. Add extremely long note support
+MusicBuilder v3.1.1
+    1. Fix midi channel active count.
+MusicBuilder v3.1.2
+    1. Fix midi multiple channel support.
+MusicBuilder v3.2
+    1. Optimized build method.
+    2. Generate starting switch automatically.
+    3. Slightly increase note tail length.
+    4. Fix grammar mistake.
+    5. Fix that the noteblock plays 1 tick longer than expected.
+MusicBuilder v3.3
+    1. Add command based note modification.
+MusicBuilder v3.4
+    1. Update extended info storing to solve save file related issues.
+MusicBuilder v3.5
+    1. Fix that playing sounds do not stop when the game quits.
+    2. Slightly increase noteblock brightness.
+    3. Add minimap suppot.
+    4. Use fixed colors rather than fix colors.

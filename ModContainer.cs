@@ -16,7 +16,7 @@ namespace MusicBuilder
     {
         public static IntPtr midiHandle;
         public static Mod instance;
-        public static int[] time = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 64, 128};
+        public static int[] time = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 64, 128, 256};
         public static string[] Instrument = new string[]{
             "acpiano",   "britepno",  "synpiano",  "honkytonk", "epiano1",   "epiano2",
             "hrpschrd",  "clavinet",  "celeste",   "glocken",   "musicbox",  "vibes",
@@ -42,7 +42,7 @@ namespace MusicBuilder
             "applause",  "ringwhsl",  "drum"
         };
 
-        public const int tailLength = 60;
+        public const int tailLength = 90;
         public override void Load()
         {
             Random rand = new Random();
@@ -54,11 +54,11 @@ namespace MusicBuilder
             Registries.delayers = new List<int>();
 
             for (int i = 0; i < 129; ++i)
-                Registries.noteData.Add((Prog) (1024 + i), new NoteData(new Color(0, 0, 0), ColorUtils.ColorHue(rand.NextDouble()), Instrument[i]));
+                Registries.noteData.Add((Prog) (1024 + i), new NoteData(new Color(0, 0, 0), ColorUtils.ColorHue(i / 129.0f), Instrument[i]));
 
             for (int i = -1; i < time.Length; ++i)
             {
-                Color lit = ColorUtils.ColorHue(rand.NextDouble());
+                Color lit = ColorUtils.ColorHue(i * 1.0f / time.Length);
                 Color bg = new Color((lit.R + 0) / 4, (lit.G + 0) / 4, (lit.B + 0) / 4);
                 Color off = new Color((lit.R + 0) / 2, (lit.G + 0) / 2, (lit.B + 0) / 2);
                 Registries.delayData.Add((ushort)(i == -1 ? 0 : time[i]), new DelayData(bg, off, lit));
@@ -88,6 +88,13 @@ namespace MusicBuilder
 
             instance = null;
         }
+
+        public override void PreSaveAndQuit()
+		{
+            foreach (PlayingSound sound in SoundManager.sounds)
+                sound.Stop();
+            SoundManager.psounds = new List<PlayingSound>();
+		}
     }
 
 }

@@ -21,6 +21,7 @@ namespace MusicBuilder.Tiles
         public static Texture2D TextureBorder;
         public static Texture2D TexturePitch;
         public static Texture2D TextureOctave;
+        public static Point16 selection;
         public override bool Autoload(ref string name, ref string texture)
         {
             texture = "MusicBuilder/Tiles/NoteblockBorder";
@@ -32,21 +33,6 @@ namespace MusicBuilder.Tiles
             return false;
         }
 
-        public override bool Slope(int i, int j)
-        {
-            byte num;
-            Main.tile[i, j].halfBrick(false);
-            Main.tile[i, j].slope(0);
-            DataCore.extField[i, j].data0 = (byte) ((num = DataCore.extField[i, j].data0) - 1);
-            if (num < min)
-            {
-                DataCore.extField[i, j].data0 = max;
-            }
-            this.HitWire(i, j);
-            NetMessage.SendTileSquare(-1, i, j, 1, TileChangeType.None);
-            return true;
-        }
-
         public override void SetDefaults()
         {
 			Main.tileBlockLight[Type] = true;
@@ -54,6 +40,9 @@ namespace MusicBuilder.Tiles
             base.disableSmartCursor = true;
             Main.tileFrameImportant[base.Type] = true;
             base.drop = base.mod.ItemType(Registries.noteData[this.NOTE].name);
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault(Registries.noteData[this.NOTE].name);
+			AddMapEntry(Registries.noteData[this.NOTE].bgc, name);
         }
 
         public override void HitWire(int i, int j)
@@ -82,9 +71,9 @@ namespace MusicBuilder.Tiles
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Color color = ColorUtils.ColorBlend(Registries.noteData[this.NOTE].bgc, new Color(0, 0, 0), SoundManager.GetProgress(new Point16(i, j)));
-            r = color.R / 256.0f;
-            g = color.G / 256.0f;
-            b = color.B / 256.0f;
+            r = color.R / 255.0f * 1.2f;
+            g = color.G / 255.0f * 1.2f;
+            b = color.B / 255.0f * 1.2f;
 		}
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -107,26 +96,18 @@ namespace MusicBuilder.Tiles
             {
                 if (Main.keyState.IsKeyDown(Keys.LeftAlt))
                 {
-                    DataCore.extField[i, j].data1 = (byte) (DataCore.extField[i, j].data1 +  (Main.keyState.IsKeyDown(Keys.LeftShift) ? -1 : 1));
-                    Main.NewText("Note length changed into " + DataCore.extField[i, j].data1 + " tick(s)");
+                    Main.NewText("Note block selected (" + i + "," + j + ")");
+                    selection = new Point16(i, j);
                     this.HitWire(i, j);
                 }
                 else if (Main.keyState.IsKeyDown(Keys.LeftShift))
                 {
-                    if ((DataCore.extField[i, j].data0 = (byte) (DataCore.extField[i, j].data0 + 12)) > max);
-                    {
-                        DataCore.extField[i, j].data0 = min;
-                    }
+                    DataCore.extField[i, j].data0 = (byte) ((DataCore.extField[i, j].data0 + 12) % max);
                     this.HitWire(i, j);
                 }
                 else
                 {
-                    byte num3;
-                    DataCore.extField[i, j].data0 = (byte) ((num3 = DataCore.extField[i, j].data0) + 1);
-                    if (num3 > max)
-                    {
-                        DataCore.extField[i, j].data0 = min;
-                    }
+                    DataCore.extField[i, j].data0 = (byte) ((DataCore.extField[i, j].data0 + 1) % max);
                     this.HitWire(i, j);
                 }
             }
@@ -134,10 +115,10 @@ namespace MusicBuilder.Tiles
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
-            if (DataCore.extField[i, j].data0 < min)
-                DataCore.extField[i, j].data0 = min;
-            if (DataCore.extField[i, j].data2 == 0)
-                DataCore.extField[i, j].data2 = 127;
+            if (DataCore.extField[i, j].data0 > 127)
+                DataCore.extField[i, j].data0 = 0;
+            if (DataCore.extField[i, j].data3 > 127)
+                DataCore.extField[i, j].data3 = 127;
             return true;
         }
 

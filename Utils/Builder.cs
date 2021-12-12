@@ -6,12 +6,14 @@ using MusicBuilder;
 
 namespace MusicBuilder.Utils
 {
+    [FlagsAttribute]
     public enum WireType
     {
+        None = 0,
         Red = 1,
         Blue = 2,
-        Green = 3,
-        Yellow = 4,
+        Green = 4,
+        Yellow = 8,
     }
 
     public enum Direction
@@ -28,23 +30,34 @@ namespace MusicBuilder.Utils
         {
             if (Main.tile[x, y] == null)
                 Main.tile[x, y] = new Tile();
-            switch(type)
-            {
-                case WireType.Red: Main.tile[x, y].wire(true);break;
-                case WireType.Blue: Main.tile[x, y].wire2(true);break;
-                case WireType.Green: Main.tile[x, y].wire3(true);break;
-                case WireType.Yellow: Main.tile[x, y].wire4(true);break;
-            }
+            if ((type & WireType.Red) != WireType.None)
+                WorldGen.PlaceWire(x, y);
+            else
+                WorldGen.KillWire(x, y);
+            if ((type & WireType.Blue) != WireType.None)
+                WorldGen.PlaceWire2(x, y);
+            else
+                WorldGen.KillWire2(x, y);
+            if ((type & WireType.Green) != WireType.None)
+                WorldGen.PlaceWire3(x, y);
+            else
+                WorldGen.KillWire3(x, y);
+            if ((type & WireType.Yellow) != WireType.None)
+                WorldGen.PlaceWire4(x, y);
+            else
+                WorldGen.KillWire4(x, y);
         }
 
         public static void PlaceTimer(int x, int y, Direction type, int delay)
         {
+            WorldGen.KillTile(x, y);
             WorldGen.PlaceTile(x, y, ModContainer.instance.GetTile("Delayer" + delay).Type);
             DataCore.extField[x, y].data1 = (byte) type;
         }
 
         public static void PlaceNoteBlock(int x, int y, Prog program, byte pitch, ushort lasting, byte velocity)
         {
+            WorldGen.KillTile(x, y);
             WorldGen.PlaceTile(x, y, ModContainer.instance.GetTile(Registries.noteData[program].name).Type);
             DataCore.extField[x, y].data0 = pitch;
             DataCore.extField[x, y].data1 = (byte) (lasting >> 8);
