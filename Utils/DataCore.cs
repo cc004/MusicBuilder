@@ -11,12 +11,11 @@ namespace MusicBuilder.Utils
     public struct ExtField
     {
         //instructment, velocity, pitch, lasting 
-        public byte data0, data1, data2, data3, data4;
+        public byte pitch, velocity;
     }
 
     public class DataCore : ModWorld
     {
-        public static DataCore instance = new DataCore();
         public static ExtField[,] extField;
         
         public override void Initialize()
@@ -34,11 +33,8 @@ namespace MusicBuilder.Utils
                 for (int i = 0; i < Main.maxTilesX; ++i)
                     for (int j = 0; j < Main.maxTilesY; ++j)
                     {
-                        extField[i, j].data0 = buffer[5 * (i + Main.maxTilesX * j)];
-                        extField[i, j].data1 = buffer[5 * (i + Main.maxTilesX * j) + 1];
-                        extField[i, j].data2 = buffer[5 * (i + Main.maxTilesX * j) + 2];
-                        extField[i, j].data3 = buffer[5 * (i + Main.maxTilesX * j) + 3];
-                        extField[i, j].data4 = buffer[5 * (i + Main.maxTilesX * j) + 4];
+                        extField[i, j].pitch = buffer[2 * (i + Main.maxTilesX * j)];
+                        extField[i, j].velocity = buffer[2 * (i + Main.maxTilesX * j) + 1];
                     }
             }
             catch
@@ -56,11 +52,8 @@ namespace MusicBuilder.Utils
                 for (int i = 0; i < Main.maxTilesX; ++i)
                     for (int j = 0; j < Main.maxTilesY; ++j)
                     {
-                        buffer[5 * (i + Main.maxTilesX * j)] = extField[i, j].data0;
-                        buffer[5 * (i + Main.maxTilesX * j) + 1] = extField[i, j].data1;
-                        buffer[5 * (i + Main.maxTilesX * j) + 2] = extField[i, j].data2;
-                        buffer[5 * (i + Main.maxTilesX * j) + 3] = extField[i, j].data3;
-                        buffer[5 * (i + Main.maxTilesX * j) + 4] = extField[i, j].data4;
+                        buffer[2 * (i + Main.maxTilesX * j)] = extField[i, j].pitch;
+                        buffer[2 * (i + Main.maxTilesX * j) + 1] = extField[i, j].velocity;
                     }
                 tag.Set("musicbuilder", buffer);
                 return tag;

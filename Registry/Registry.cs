@@ -37,7 +37,5 @@ namespace MusicBuilder.Registry
     public static class Registries
     {
         public static Dictionary<Prog, NoteData> noteData;
-        public static Dictionary<int, DelayData> delayData;
-        public static List<int> delayers = new List<int>();
     }
 }

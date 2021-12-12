@@ -19,7 +19,7 @@ namespace MusicBuilder.Utils
         public static Channel[] channels;
         private static int nextID;
         public Point16 point;
-        private int length, keyID, channel;
+        private int keyID, channel;
         private Prog program;
         private byte pitch, velocity;
         public static void WorldReset()
@@ -34,10 +34,9 @@ namespace MusicBuilder.Utils
             channels[9].program = (Prog) 1152;
         }
 
-        public PlayingSound(Point16 point, ushort length, Prog program, byte pitch, byte velocity)
+        public PlayingSound(Point16 point, Prog program, byte pitch, byte velocity)
         {
             this.point = point;
-            this.length = length;
             this.program = program;
             this.pitch = pitch;
             this.velocity = velocity;
@@ -83,53 +82,45 @@ namespace MusicBuilder.Utils
                 channels[channel].key[pitch] = 0;
             }
         }
-
-        public bool CountDown()
-        {
-            if (--length == 0)
-                Stop();
-            return length > -ModContainer.tailLength;
-        }
-
-        public double GetProgress()
-        {
-            return length > 0 ? 0.0 : -length / (double) ModContainer.tailLength;
-        }
     }
 
     public class SoundManager : ModWorld
     {
-        public static List<PlayingSound> sounds, psounds;
+        private static Dictionary<Point16, PlayingSound> sounds;
+        
         public override void Initialize()
         {
-            sounds = new List<PlayingSound>();
-            psounds = new List<PlayingSound>();
+            sounds = new Dictionary<Point16, PlayingSound>();
             PlayingSound.WorldReset();
         }
 
         public static double GetProgress(Point16 point)
         {
-            foreach (PlayingSound sound in sounds)
-                if (sound.point == point) return sound.GetProgress();
-            return 1.0;
+            return sounds.ContainsKey(point) ? 0.0 : 1.0;
         }
 
-        public static void PlaySound(Point16 point, Prog program, byte pitch, ushort length, byte velocity)
+        public static void PlaySound(Point16 point, Prog program, byte pitch, byte velocity)
         {
-            psounds.Add(new PlayingSound(point, length, program, pitch, velocity));
+            if (sounds.TryGetValue(point, out var snd))
+            {
+                snd.Stop();
+                sounds.Remove(point);
+            }
+            else
+            {
+                snd = new PlayingSound(point, program, pitch, velocity);
+                if (snd.Play())
+                    sounds.Add(point, snd);
+            }
         }
-
-        public override void PostUpdate()
+        
+        public static void StopAll()
         {
-            List<PlayingSound> temp = new List<PlayingSound>();
-            foreach (PlayingSound sound in sounds)
-                if (sound.CountDown())
-                    temp.Add(sound);
-            foreach (PlayingSound sound in psounds)
-                if (sound.Play())
-                    temp.Add(sound);
-            sounds = temp;
-            psounds = new List<PlayingSound>();
+            foreach (var pair in sounds)
+            {
+                pair.Value.Stop();
+            }
+            sounds.Clear();
         }
     }
 }

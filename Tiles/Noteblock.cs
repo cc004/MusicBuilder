@@ -50,9 +50,8 @@ namespace MusicBuilder.Tiles
             SoundManager.PlaySound(
                 new Point16(i, j),
                 NOTE,
-                DataCore.extField[i, j].data0,
-                (ushort)((DataCore.extField[i, j].data1 << 8) | DataCore.extField[i, j].data2),
-                DataCore.extField[i, j].data3
+                DataCore.extField[i, j].pitch,
+                DataCore.extField[i, j].velocity
             );
         }
 
@@ -84,8 +83,8 @@ namespace MusicBuilder.Tiles
             int num = ((i * 0x10) - ((int) Main.screenPosition.X)) + Main.offScreenRange;
             int num2 = ((j * 0x10) - ((int) Main.screenPosition.Y)) + Main.offScreenRange;
             spriteBatch.Draw(TextureBorder, new Vector2((float) num, (float) num2), Lighting.GetColor(i, j, c));
-            spriteBatch.Draw(TexturePitch, new Vector2((float) num, (float) num2), new Rectangle(0x12 * (DataCore.extField[i, j].data0 % 12), 0, 0x10, 0x10), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
-            spriteBatch.Draw(TextureOctave, new Vector2((float) (num + 8), (float) (num2 + 8)), new Rectangle(6 * (DataCore.extField[i, j].data0 / 12), 0, 6, 6), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
+            spriteBatch.Draw(TexturePitch, new Vector2((float) num, (float) num2), new Rectangle(0x12 * (DataCore.extField[i, j].pitch % 12), 0, 0x10, 0x10), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
+            spriteBatch.Draw(TextureOctave, new Vector2((float) (num + 8), (float) (num2 + 8)), new Rectangle(6 * (DataCore.extField[i, j].pitch / 12), 0, 6, 6), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
             return false;
         }
 
@@ -102,24 +101,31 @@ namespace MusicBuilder.Tiles
                 }
                 else if (Main.keyState.IsKeyDown(Keys.LeftShift))
                 {
-                    DataCore.extField[i, j].data0 = (byte) ((DataCore.extField[i, j].data0 + 12) % max);
+                    DataCore.extField[i, j].pitch = (byte) ((DataCore.extField[i, j].pitch + 12) % max);
                     this.HitWire(i, j);
                 }
                 else
                 {
-                    DataCore.extField[i, j].data0 = (byte) ((DataCore.extField[i, j].data0 + 1) % max);
+                    DataCore.extField[i, j].pitch = (byte) ((DataCore.extField[i, j].pitch + 1) % max);
                     this.HitWire(i, j);
                 }
             }
         }
-
+        
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
-            if (DataCore.extField[i, j].data0 > 127)
-                DataCore.extField[i, j].data0 = 0;
-            if (DataCore.extField[i, j].data3 > 127)
-                DataCore.extField[i, j].data3 = 127;
+            if (DataCore.extField[i, j].pitch > 127)
+                DataCore.extField[i, j].pitch = 0;
+            if (DataCore.extField[i, j].velocity > 127)
+                DataCore.extField[i, j].velocity = 127;
             return true;
+        }
+
+        public override void PlaceInWorld(int i, int j, Item item)
+        {
+            base.PlaceInWorld(i, j, item);
+            DataCore.extField[i, j].pitch = 48;
+            DataCore.extField[i, j].velocity = 64;
         }
 
         public static void Unload()
@@ -129,12 +135,6 @@ namespace MusicBuilder.Tiles
             TextureOctave = null;
         }
 
-        public virtual Prog NOTE
-        {
-            get
-            {
-                return Prog.None;
-            }
-        }
+        public virtual Prog NOTE => Prog.None;
     }
 }

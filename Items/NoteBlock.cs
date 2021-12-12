@@ -70,19 +70,8 @@ namespace MusicBuilder.Items
             base.Tooltip.SetDefault("Right click to increase pitch, hit with a hammer to decrease pitch.\nHolding shift makes it jump by an octave instead.");
         }
 
-        public virtual Prog NOTE
-        {
-            get
-            {
-                return Prog.None;
-            }
-        }
-        public override string Texture
-        {
-            get
-            {
-                return "MusicBuilder/Items/NoteblockBorder";
-            }
-        }
+        public virtual Prog NOTE => Prog.None;
+
+        public override string Texture => "MusicBuilder/Items/NoteblockBorder";
     }
 }
