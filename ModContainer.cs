@@ -14,7 +14,7 @@ namespace MusicBuilder
 {
     class ModContainer : Mod
     {
-        public static IntPtr midiHandle;
+        public static MidiDevice device;
         public static Mod instance;
         public static string[] Instrument = new string[]{
             "acpiano",   "britepno",  "synpiano",  "honkytonk", "epiano1",   "epiano2",
@@ -54,12 +54,8 @@ namespace MusicBuilder
                 Registries.noteData.Add((Prog) (1024 + i), new NoteData(new Color(0, 0, 0), ColorUtils.ColorHue(i / 129.0f), Instrument[i]));
             
             Noteblock.Load();
-
-            IntPtr nullptr = new IntPtr(0);
-            uint result = DLLContainer.midiOutOpen(out midiHandle, 0u, nullptr, nullptr, 0);
-            if (result != 0)
-                throw new SystemException("Failed to open midi device. code " + result);
-
+            
+            device = new MidiDevice();
         }
 
         public override void Unload()
@@ -67,7 +63,8 @@ namespace MusicBuilder
             Registries.noteData = null;
             
             Noteblock.Unload();
-            DLLContainer.midiOutClose(midiHandle);
+            device.Dispose();
+            device = null;
 
             instance = null;
         }

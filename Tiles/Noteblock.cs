@@ -11,7 +11,6 @@ using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using MusicBuilder.Utils;
 
 namespace MusicBuilder.Tiles
 {
@@ -88,28 +87,27 @@ namespace MusicBuilder.Tiles
             return false;
         }
 
-        //TODO: add velocity change support.
-        public override void RightClick(int i, int j)
+        public override bool NewRightClick(int i, int j)
         {
-            if (!Main.player[Main.myPlayer].mouseInterface)
+            if (Main.player[Main.myPlayer].mouseInterface) return false;
+
+            if (Main.keyState.IsKeyDown(Keys.LeftAlt))
             {
-                if (Main.keyState.IsKeyDown(Keys.LeftAlt))
-                {
-                    Main.NewText("Note block selected (" + i + "," + j + ")");
-                    selection = new Point16(i, j);
-                    this.HitWire(i, j);
-                }
-                else if (Main.keyState.IsKeyDown(Keys.LeftShift))
-                {
-                    DataCore.extField[i, j].pitch = (byte) ((DataCore.extField[i, j].pitch + 12) % max);
-                    this.HitWire(i, j);
-                }
-                else
-                {
-                    DataCore.extField[i, j].pitch = (byte) ((DataCore.extField[i, j].pitch + 1) % max);
-                    this.HitWire(i, j);
-                }
+                Main.NewText("Note block selected (" + i + "," + j + ")");
+                selection = new Point16(i, j);
             }
+            else if (Main.keyState.IsKeyDown(Keys.LeftShift))
+            {
+                DataCore.extField[i, j].pitch = (byte)((DataCore.extField[i, j].pitch + 12) % max);
+            }
+            else
+            {
+                DataCore.extField[i, j].pitch = (byte)((DataCore.extField[i, j].pitch + 1) % max);
+            }
+
+            HitWire(i, j);
+            return true;
+
         }
         
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

@@ -23,7 +23,7 @@ namespace MusicBuilder.Commands
                 string result = "";
                 for (int i = 0; i < 16; ++i)
                 {
-                    result = result + PlayingSound.channels[i].activeCount + " ";
+                    result = result + ModContainer.device.channels[i].activeCount + " ";
                 }
                 Main.NewText(result);
                 return;
@@ -35,7 +35,6 @@ namespace MusicBuilder.Commands
             }
             int x = Noteblock.selection.X, y = Noteblock.selection.Y;
             byte value;
-            ushort values;
             switch (args[0].ToLower()[0])
             {
                 case 'p':
