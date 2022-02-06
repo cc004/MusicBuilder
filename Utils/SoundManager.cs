@@ -24,11 +24,11 @@ namespace MusicBuilder.Utils
         }
     }
 
-    public class SoundManager : ModWorld
+    public class SoundManager : ModSystem
     {
         private static Dictionary<Point16, PlayingSound> sounds;
         
-        public override void Initialize()
+        public override void OnWorldLoad()
         {
             sounds = new Dictionary<Point16, PlayingSound>();
         }

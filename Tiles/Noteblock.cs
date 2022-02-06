@@ -5,6 +5,8 @@ using MusicBuilder.Utils;
 using MusicBuilder.Registry;
 using MusicBuilder;
 using System;
+using MusicBuilder.Commands;
+using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -14,36 +16,34 @@ using Terraria.ObjectData;
 
 namespace MusicBuilder.Tiles
 {
-    public class Noteblock : ModTile
+    public abstract class Noteblock<T> : ModTile where T : ModItem
     {
         const int min = 0, max = 127;
-        public static Texture2D TextureBorder;
-        public static Texture2D TexturePitch;
-        public static Texture2D TextureOctave;
-        public static Point16 selection;
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "MusicBuilder/Tiles/NoteblockBorder";
-            return (this.NOTE != Prog.None);
-        }
+
+        public override string Texture => "MusicBuilder/Tiles/NoteblockBorder";
 
         public override bool CanExplode(int i, int j)
         {
             return false;
         }
 
-        public override void SetDefaults()
+        private static Color bgc;
+
+        public override void SetStaticDefaults()
         {
-			Main.tileBlockLight[Type] = true;
-			Main.tileLighted[Type] = true;
-            base.disableSmartCursor = true;
-            Main.tileFrameImportant[base.Type] = true;
-            base.drop = base.mod.ItemType(Registries.noteData[this.NOTE].name);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault(Registries.noteData[this.NOTE].name);
-			AddMapEntry(Registries.noteData[this.NOTE].bgc, name);
+            bgc = ColorUtils.ColorHue(new Random(GetType().Name.GetHashCode()).NextDouble());
+            Main.tileBlockLight[Type] = true;
+            Main.tileLighted[Type] = true;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoSunLight[Type] = false;
+            ItemDrop = ModContent.ItemType<T>();
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault(GetType().Name);
+            AddMapEntry(Registries.noteData[this.NOTE].bgc, name);
         }
 
+        public override bool HasSmartInteract() => false;
+        
         public override void HitWire(int i, int j)
         {
             SoundManager.PlaySound(
@@ -53,19 +53,7 @@ namespace MusicBuilder.Tiles
                 DataCore.extField[i, j].velocity
             );
         }
-
-        public static void Load()
-        {
-            TextureBorder = ModContainer.instance.GetTexture("Tiles/NoteblockBorder");
-            TexturePitch = ModContainer.instance.GetTexture("Tiles/NoteblockPitch");
-            TextureOctave = ModContainer.instance.GetTexture("Tiles/NoteblockOctave");
-        }
-
-        public override void PostSetDefaults()
-        {
-            Main.tileNoSunLight[base.Type] = false;
-        }
-
+        
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Color color = ColorUtils.ColorBlend(Registries.noteData[this.NOTE].bgc, new Color(0, 0, 0), SoundManager.GetProgress(new Point16(i, j)));
@@ -76,25 +64,25 @@ namespace MusicBuilder.Tiles
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Color c = Registries.noteData[this.NOTE].bgc;
+            Color c = bgc;
             c = ColorUtils.ColorBlend(c, new Color(c.R / 2, c.G / 2, c.B / 2), SoundManager.GetProgress(new Point16(i, j)));
 
             int num = ((i * 0x10) - ((int) Main.screenPosition.X)) + Main.offScreenRange;
             int num2 = ((j * 0x10) - ((int) Main.screenPosition.Y)) + Main.offScreenRange;
-            spriteBatch.Draw(TextureBorder, new Vector2((float) num, (float) num2), Lighting.GetColor(i, j, c));
-            spriteBatch.Draw(TexturePitch, new Vector2((float) num, (float) num2), new Rectangle(0x12 * (DataCore.extField[i, j].pitch % 12), 0, 0x10, 0x10), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
-            spriteBatch.Draw(TextureOctave, new Vector2((float) (num + 8), (float) (num2 + 8)), new Rectangle(6 * (DataCore.extField[i, j].pitch / 12), 0, 6, 6), Lighting.GetColor(i, j, Registries.noteData[this.NOTE].txt));
+            spriteBatch.Draw(TextureContainer.TextureBorder.Value, new Vector2((float) num, (float) num2), Lighting.GetColor(i, j, c));
+            spriteBatch.Draw(TextureContainer.TexturePitch.Value, new Vector2((float) num, (float) num2), new Rectangle(0x12 * (DataCore.extField[i, j].pitch % 12), 0, 0x10, 0x10), Lighting.GetColor(i, j, Color.Black));
+            spriteBatch.Draw(TextureContainer.TextureOctave.Value, new Vector2((float) (num + 8), (float) (num2 + 8)), new Rectangle(6 * (DataCore.extField[i, j].pitch / 12), 0, 6, 6), Lighting.GetColor(i, j, Color.Black));
             return false;
         }
 
-        public override bool NewRightClick(int i, int j)
+        public override bool RightClick(int i, int j)
         {
             if (Main.player[Main.myPlayer].mouseInterface) return false;
 
             if (Main.keyState.IsKeyDown(Keys.LeftAlt))
             {
                 Main.NewText("Note block selected (" + i + "," + j + ")");
-                selection = new Point16(i, j);
+                MyCommand.selection = new Point16(i, j);
             }
             else if (Main.keyState.IsKeyDown(Keys.LeftShift))
             {
@@ -106,8 +94,8 @@ namespace MusicBuilder.Tiles
             }
 
             HitWire(i, j);
+            Scheduler.Schedule(60, () => HitWire(i, j));
             return true;
-
         }
         
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -125,14 +113,6 @@ namespace MusicBuilder.Tiles
             DataCore.extField[i, j].pitch = 48;
             DataCore.extField[i, j].velocity = 64;
         }
-
-        public static void Unload()
-        {
-            TextureBorder = null;
-            TexturePitch = null;
-            TextureOctave = null;
-        }
-
         public virtual Prog NOTE => Prog.None;
     }
 }

@@ -1,4 +1,5 @@
 using System.IO;
+using MusicBuilder.Commands;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Utilities;
@@ -14,18 +15,18 @@ namespace MusicBuilder.Utils
         public byte pitch, velocity;
     }
 
-    public class DataCore : ModWorld
+    public class DataCore : ModSystem
     {
         public static ExtField[,] extField;
         
-        public override void Initialize()
+        public override void OnWorldLoad()
         {
             extField = new ExtField[Main.maxTilesX, Main.maxTilesY];
             //TODO: should be somewhere else
-            Noteblock.selection = new Point16(-1, -1);
+            MyCommand.selection = new Point16(-1, -1);
         }
-
-        public override void Load(TagCompound tag)
+        
+        public override void LoadWorldData(TagCompound tag)
         {
             try
             {
@@ -43,12 +44,11 @@ namespace MusicBuilder.Utils
             }
         }
         
-        public override TagCompound Save()
+        public override void SaveWorldData(TagCompound tag)
         {
             try
             {
                 byte[] buffer = new byte[5 * Main.maxTilesX * Main.maxTilesY];
-                TagCompound tag = new TagCompound();
                 for (int i = 0; i < Main.maxTilesX; ++i)
                     for (int j = 0; j < Main.maxTilesY; ++j)
                     {
@@ -56,11 +56,9 @@ namespace MusicBuilder.Utils
                         buffer[2 * (i + Main.maxTilesX * j) + 1] = extField[i, j].velocity;
                     }
                 tag.Set("musicbuilder", buffer);
-                return tag;
             }
             catch
             {
-                return null;
             }
         }
     }

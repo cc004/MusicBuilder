@@ -53,26 +53,15 @@ namespace MusicBuilder
             for (int i = 0; i < 129; ++i)
                 Registries.noteData.Add((Prog) (1024 + i), new NoteData(new Color(0, 0, 0), ColorUtils.ColorHue(i / 129.0f), Instrument[i]));
             
-            Noteblock.Load();
-            
             device = new MidiDevice();
         }
 
         public override void Unload()
         {
-            Registries.noteData = null;
-            
-            Noteblock.Unload();
             device.Dispose();
             device = null;
 
             instance = null;
         }
-
-        public override void PreSaveAndQuit()
-        {
-            SoundManager.StopAll();
-		}
     }
-
 }

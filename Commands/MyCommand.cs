@@ -7,8 +7,10 @@ using MusicBuilder.Utils;
 
 namespace MusicBuilder.Commands
 {
-    public class mb : ModCommand
+    public class MyCommand : ModCommand
     {
+        internal static Point16 selection;
+
         public override string Command => "mb";
 
         public override CommandType Type => CommandType.Chat;
@@ -28,12 +30,12 @@ namespace MusicBuilder.Commands
                 Main.NewText(result);
                 return;
             }
-            if (Noteblock.selection == new Point16(-1, -1))
+            if (selection == new Point16(-1, -1))
             {
                 Main.NewText("You should make a selection first.");
                 return;
             }
-            int x = Noteblock.selection.X, y = Noteblock.selection.Y;
+            int x = selection.X, y = selection.Y;
             byte value;
             switch (args[0].ToLower()[0])
             {
@@ -41,15 +43,18 @@ namespace MusicBuilder.Commands
                     value = (byte) Math.Max(0, Math.Min(127, int.Parse(args[0].Substring(1))));
                     DataCore.extField[x, y].pitch = value;
                     Main.NewText("pitch changed to " + value);
-                    new Noteblock().HitWire(x, y);
                     break;
                 case 'v':
                     value = (byte) Math.Max(0, Math.Min(127, int.Parse(args[0].Substring(1))));
                     DataCore.extField[x, y].velocity = value;
                     Main.NewText("velocity changed to " + value);
-                    new Noteblock().HitWire(x, y);
                     break;
+                default:
+                    return;
             }
+            var action = () => ModContent.GetModTile(Main.tile[x, y].type).HitWire(x, y);
+            action();
+            Scheduler.Schedule(60, action);
         }
     }
 }
